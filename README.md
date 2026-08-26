@@ -1,2 +1,64 @@
-# select-sideline-blog
-Select Sideline blog. Static Worker + Assets at blog.selectsideline.com. Not the PlayMaker app.
+# Select Sideline blog
+
+Public notes for [Select Sideline](https://selectsideline.com). Live host is `https://blog.selectsideline.com`.
+
+This repo is a static Astro site deployed as a Cloudflare Worker + Assets on the Workers Free plan. The Worker script name is `select-sideline-blog`. It is **not** the playmaker Worker, and it is not the playbook app.
+
+## Local
+
+```bash
+npm install
+npm test
+```
+
+`npm test` runs `npm run build` (static files in `dist/`) and then copy and config checks.
+
+```bash
+npm run dev
+```
+
+## Deploy
+
+Cloudflare Workers Builds on `main`:
+
+1. Build command: `npm run build`
+2. Deploy command: `npx wrangler deploy`
+
+`wrangler.jsonc` is already set for that flow:
+
+- `name`: `select-sideline-blog`
+- `workers_dev`: false
+- `preview_urls`: false
+- `assets.directory`: `./dist`
+- custom domain route: `blog.selectsideline.com`
+
+No D1, KV, R2, Workers AI, Queues, Logpush, Observability, Zaraz, or other paid add-ons.
+
+Custom domain attach happens on the first successful `wrangler deploy` in the Cloudflare account that owns `selectsideline.com`.
+
+## Content
+
+Not a CMS. Three hardcoded Markdown posts:
+
+- `/mission`
+- `/goals`
+- `/progress`
+
+Feedback stays on the app (`feedback@selectsideline.com`). This site has no feedback form.
+
+## Images
+
+All visual media must be Grok Imagine (`grok-imagine-image-2.0`). Drop files on these public paths (see `public/MEDIA.md`):
+
+- `public/og.png` (1200 x 630)
+- `public/hero.png` (16:9 homepage hero)
+- `public/favicon.png`
+- `public/posts/mission.png`
+- `public/posts/goals.png`
+- `public/posts/progress.png`
+
+Do not generate replacements with Cursor GenerateImage, DALL-E, Midjourney, stock photos, or PIL text posters.
+
+## SEO
+
+Indexable public pages (`index,follow`), canonical URLs on `https://blog.selectsideline.com`, `robots.txt`, `sitemap.xml`, Open Graph / Twitter cards, and JSON-LD `Blog` / `BlogPosting` for Select Sideline.

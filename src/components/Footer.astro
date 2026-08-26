@@ -1,0 +1,15 @@
+---
+import { APP_URL, FEEDBACK_EMAIL, SITE_NAME } from "../lib/site";
+
+const year = new Date().getUTCFullYear();
+---
+
+<footer class="site-footer">
+  <div class="wrap">
+    <p>Copyright {year} {SITE_NAME}.</p>
+    <p>
+      The playbook app lives at <a href={APP_URL}>selectsideline.com</a>.
+      Send product notes from the app or {FEEDBACK_EMAIL}.
+    </p>
+  </div>
+</footer>

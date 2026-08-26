@@ -1,0 +1,55 @@
+---
+import { getCollection, render } from "astro:content";
+import type { CollectionEntry } from "astro:content";
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { blogPostingJsonLd, formatDate } from "../lib/site";
+
+export async function getStaticPaths() {
+  const posts = await getCollection("posts");
+  return posts.map((post) => ({
+    params: { slug: post.id },
+    props: { post },
+  }));
+}
+
+interface Props {
+  post: CollectionEntry<"posts">;
+}
+
+const { post } = Astro.props;
+const { Content } = await render(post);
+const pathname = `/${post.id}`;
+---
+
+<BaseLayout
+  title={post.data.title}
+  description={post.data.description}
+  pathname={pathname}
+  jsonLd={blogPostingJsonLd({
+    title: post.data.title,
+    description: post.data.description,
+    pathname,
+    pubDate: post.data.pubDate,
+    updatedDate: post.data.updatedDate,
+  })}
+>
+  <p class="kicker">Select Sideline</p>
+  <article>
+    <figure class="media-frame post-header">
+      <img
+        src={post.data.headerImage}
+        alt={post.data.headerAlt}
+        width="1600"
+        height="900"
+      />
+    </figure>
+    <h1>{post.data.title}</h1>
+    <p class="article-meta">
+      <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+    </p>
+    <div class="prose">
+      <Content />
+    </div>
+  </article>
+  <a class="back" href="/">Back to the blog</a>
+</BaseLayout>
