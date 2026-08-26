@@ -10,6 +10,7 @@ export const MEDIA = {
   og: "/og.jpg",
   hero: "/hero.jpg",
   favicon: "/favicon.png",
+  mark: "/mark.png",
   posts: {
     mission: "/posts/mission.jpg",
     goals: "/posts/goals.jpg",
@@ -20,7 +21,7 @@ export const MEDIA = {
 export const OG_IMAGE_PATH = MEDIA.og;
 
 export const SITE_DESCRIPTION =
-  "Notes from Select Sideline, a curated youth football playbook and sideline tool for select-age 3rd through 8th grade teams.";
+  "A curated playbook for select and premier youth coaches. Roster and play calling stay together, work offline, and remain free to use.";
 
 export function postMediaPath(id: string): string {
   switch (id) {

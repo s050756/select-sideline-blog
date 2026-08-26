@@ -95,6 +95,7 @@ test("required Imagine bytes are committed in public/", () => {
     ["public/hero.jpg", jpeg],
     ["public/favicon.png", png],
     ["public/apple-touch-icon.png", png],
+    ["public/mark.png", png],
     ["public/posts/mission.jpg", jpeg],
     ["public/posts/goals.jpg", jpeg],
     ["public/posts/progress.jpg", jpeg],
@@ -109,6 +110,7 @@ test("required Imagine bytes are committed in public/", () => {
   assert.doesNotMatch(ignore, /public\/hero\.jpg/);
   assert.doesNotMatch(ignore, /public\/favicon\.png/);
   assert.doesNotMatch(ignore, /public\/apple-touch-icon\.png/);
+  assert.doesNotMatch(ignore, /public\/mark\.png/);
   assert.doesNotMatch(ignore, /public\/posts\/\*\.jpg/);
   assert.doesNotMatch(read(join(ROOT, "package.json")), /decode-imagine/);
 });
@@ -118,6 +120,7 @@ test("Grok Imagine media slots are wired to public/ JPG paths", () => {
   assert.match(site, /og: "\/og\.jpg"/);
   assert.match(site, /hero: "\/hero\.jpg"/);
   assert.match(site, /favicon: "\/favicon\.png"/);
+  assert.match(site, /mark: "\/mark\.png"/);
   assert.match(site, /mission: "\/posts\/mission\.jpg"/);
   assert.match(site, /goals: "\/posts\/goals\.jpg"/);
   assert.match(site, /progress: "\/posts\/progress\.jpg"/);
@@ -138,14 +141,26 @@ test("paper editorial replaces the turf wallpaper theme", () => {
   assert.doesNotMatch(css, /system-ui/);
   assert.doesNotMatch(css, /repeating-linear-gradient/);
   assert.doesNotMatch(css, /#facc15/);
+  assert.match(css, /--muted: #2a312e/);
+  assert.match(css, /--amber: #4a3208/);
+  assert.match(css, /--link: #0c5e38/);
+  assert.match(css, /--link-visited: #0c5e38/);
+  assert.match(css, /border-radius: 999px/);
   assert.match(layout, /fonts\.googleapis\.com/);
   assert.match(layout, /Newsreader/);
   assert.match(layout, /Source\+Sans\+3/);
   assert.match(homeSrc, /class="hero"/);
   assert.match(homeSrc, /class="hero-board"/);
   assert.match(homeSrc, /class="support"/);
+  assert.match(
+    homeSrc,
+    /A curated playbook for select and premier youth coaches\. Roster and play calling stay together/,
+  );
   assert.doesNotMatch(homeSrc, /post-card/);
   assert.doesNotMatch(homeSrc, /<h2>Posts<\/h2>/);
+  assert.match(missionMd, /title: A playbook ready to teach/);
+  assert.match(goalsMd, /title: Built for game day, not setup week/);
+  assert.match(progressMd, /title: The playbook is live/);
   assert.match(missionMd, /headerImage: \/posts\/mission\.jpg/);
   assert.match(goalsMd, /headerImage: \/posts\/goals\.jpg/);
   assert.match(progressMd, /headerImage: \/posts\/progress\.jpg/);
@@ -169,7 +184,13 @@ test("every page has an obvious product link to https://selectsideline.com", () 
   assert.match(home, /class="support"/);
   assert.doesNotMatch(home, /post-card/);
   assert.match(home, /class="cta" href="https:\/\/selectsideline\.com"/);
+  assert.equal([...home.matchAll(/class="cta"/g)].length, 2);
+  assert.match(home, /src="\/mark\.png"/);
+  assert.doesNotMatch(home, /<span class="brand-mark"/);
+  assert.match(home, />Use the app</);
+  assert.doesNotMatch(home, /footer[\s\S]*class="cta"/);
   assert.match(mission, /class="product-close"/);
+  assert.doesNotMatch(mission, /product-close[\s\S]*class="cta"/);
   assert.match(goals, /class="product-close"/);
   assert.match(progress, /class="product-close"/);
 });
@@ -201,6 +222,7 @@ test("build emits indexable static assets", () => {
   assert.equal(existsSync(join(DIST, "hero.jpg")), true);
   assert.equal(existsSync(join(DIST, "favicon.png")), true);
   assert.equal(existsSync(join(DIST, "apple-touch-icon.png")), true);
+  assert.equal(existsSync(join(DIST, "mark.png")), true);
   assert.equal(existsSync(join(DIST, "posts", "mission.jpg")), true);
   assert.equal(existsSync(join(DIST, "posts", "goals.jpg")), true);
   assert.equal(existsSync(join(DIST, "posts", "progress.jpg")), true);

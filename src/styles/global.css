@@ -3,11 +3,14 @@
   --paper-2: #efebe1;
   --ink: #12110e;
   --ink-soft: #3c3831;
-  --muted: #6d675e;
+  --muted: #2a312e;
   --hairline: rgba(18, 17, 14, 0.1);
   --turf: #1f5a3d;
-  --amber: #c99414;
-  --amber-deep: #b07f0d;
+  --amber: #4a3208;
+  --forest: #0c5e38;
+  --link: #0c5e38;
+  --link-visited: #0c5e38;
+  --chalk: #f6f3ec;
   --night: #0e0c0a;
   --measure: 64ch;
   --wide: 74rem;
@@ -43,13 +46,17 @@ body {
 }
 
 a {
-  color: var(--ink);
+  color: var(--link);
   text-decoration-thickness: 1px;
   text-underline-offset: 0.18em;
 }
 
+a:visited {
+  color: var(--link-visited);
+}
+
 a:hover {
-  color: var(--turf);
+  color: var(--link);
 }
 
 a:focus-visible {
@@ -116,14 +123,16 @@ a:focus-visible {
   font-size: 1rem;
 }
 
+.brand:visited,
 .brand:hover {
   color: var(--ink);
 }
 
 .brand-mark {
-  width: 0.48rem;
-  height: 0.48rem;
-  background: var(--amber);
+  width: 2rem;
+  height: 2rem;
+  display: block;
+  object-fit: contain;
   flex: 0 0 auto;
 }
 
@@ -139,6 +148,10 @@ a:focus-visible {
   text-decoration: none;
 }
 
+.nav a:visited {
+  color: var(--ink-soft);
+}
+
 .nav a[aria-current="page"] {
   color: var(--ink);
 }
@@ -147,21 +160,25 @@ a:focus-visible {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  color: var(--ink);
-  background: var(--amber);
-  padding: 0.68rem 1.1rem;
+  color: var(--chalk);
+  background: var(--forest);
+  padding: 0.68rem 1.15rem;
   font-family: var(--sans);
   font-weight: 650;
   font-size: 0.92rem;
   letter-spacing: 0.01em;
   text-decoration: none;
   line-height: 1.15;
-  border-radius: 4px;
+  border-radius: 999px;
+}
+
+.cta:visited {
+  color: var(--chalk);
 }
 
 .cta:hover {
-  color: var(--ink);
-  background: var(--amber-deep);
+  color: var(--chalk);
+  background: #0a4d2e;
 }
 
 .nav .cta {
@@ -421,16 +438,6 @@ h2 {
   margin: 2.75rem 0 0;
   padding: 1.75rem 0 0;
   border-top: 1px solid var(--hairline);
-  max-width: 34rem;
-}
-
-.product-close h2 {
-  font-size: 2rem;
-  margin: 0 0 0.6rem;
-}
-
-.product-close p {
-  margin: 0 0 1.15rem;
   color: var(--ink-soft);
 }
 
@@ -450,13 +457,6 @@ h2 {
   padding: 2.4rem 0 2.6rem;
   color: var(--muted);
   font-size: 0.92rem;
-}
-
-.footer-inner {
-  display: flex;
-  align-items: flex-end;
-  justify-content: space-between;
-  gap: 2rem;
 }
 
 .site-footer p {
@@ -486,10 +486,6 @@ h2 {
     gap: 2.4rem;
   }
 
-  .footer-inner {
-    flex-direction: column;
-    align-items: flex-start;
-  }
 }
 
 @media (max-width: 640px) {

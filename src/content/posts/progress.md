@@ -1,5 +1,5 @@
 ---
-title: The product is live
+title: The playbook is live
 description: Select Sideline is live at selectsideline.com with playbook, roster, share and join, print sheets, and in-app feedback.
 pubDate: 2026-08-20
 headerImage: /posts/progress.jpg

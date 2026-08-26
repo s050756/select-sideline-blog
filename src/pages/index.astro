@@ -3,7 +3,6 @@ import { getCollection } from "astro:content";
 import ProductCta from "../components/ProductCta.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import {
-  APP_URL,
   MEDIA,
   SITE_DESCRIPTION,
   SITE_TITLE,
@@ -52,9 +51,8 @@ if (!featured) {
   </section>
   <div class="home-body">
     <p class="home-standfirst">
-      A curated youth playbook for select-age 3rd through 8th grade teams. Easy to teach, roster next
-      to play calling, offline, and free. The live product is
-      <a href={APP_URL}>https://selectsideline.com</a>.
+      A curated playbook for select and premier youth coaches. Roster and play calling stay together,
+      work offline, and remain free to use.
     </p>
     <p class="kicker home-label">More stories</p>
     <section class="support" aria-label="More stories">

@@ -1,21 +1,19 @@
 ---
 import { APP_URL, FEEDBACK_EMAIL, SITE_NAME } from "../lib/site";
-import ProductCta from "./ProductCta.astro";
 
 const year = new Date().getUTCFullYear();
 ---
 
 <footer class="site-footer">
-  <div class="wrap footer-inner">
-    <div>
-      <p>Copyright {year} {SITE_NAME}.</p>
-      <p>
-        Use the live product at <a href={APP_URL}>https://selectsideline.com</a>.
-        Send product notes from the app or {FEEDBACK_EMAIL}.
-      </p>
-    </div>
-    <p class="footer-cta">
-      <ProductCta label="Use the app" />
+  <div class="wrap">
+    <p>
+      A curated playbook for select and premier youth coaches. Roster and play calling stay together,
+      work offline, and remain free to use.
     </p>
+    <p>
+      <a href={APP_URL}>Use the app</a>
+      {" "}· {FEEDBACK_EMAIL}
+    </p>
+    <p>© {year} {SITE_NAME}.</p>
   </div>
 </footer>
