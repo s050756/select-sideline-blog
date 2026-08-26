@@ -368,6 +368,15 @@ article { max-width: var(--prose); }
 
 .prose p { margin: 0 0 1.05rem; }
 
+.prose iframe {
+  display: block;
+  width: 100%;
+  height: auto;
+  aspect-ratio: 16 / 9;
+  border: 0;
+  background: var(--paper-2);
+}
+
 .prose ul {
   margin: 0 0 1.2rem;
   padding-left: 1.2rem;

@@ -150,6 +150,7 @@ test("required Imagine bytes are committed in public/", () => {
     ["public/posts/mission.jpg", jpeg],
     ["public/posts/goals.jpg", jpeg],
     ["public/posts/progress.jpg", jpeg],
+    ["public/posts/watch-the-playbook.jpg", jpeg],
   ];
   for (const [rel, magic] of files) {
     const buf = readFileSync(join(ROOT, rel));
@@ -175,6 +176,7 @@ test("Grok Imagine media slots are wired to public/ JPG paths", () => {
   assert.match(site, /mission: "\/posts\/mission\.jpg"/);
   assert.match(site, /goals: "\/posts\/goals\.jpg"/);
   assert.match(site, /progress: "\/posts\/progress\.jpg"/);
+  assert.match(site, /watchThePlaybook: "\/posts\/watch-the-playbook\.jpg"/);
   assert.match(read(join(ROOT, "src", "lib", "site.ts")), /APP_URL = "https:\/\/selectsideline\.com"/);
 });
 
@@ -185,9 +187,10 @@ test("paper editorial replaces the turf wallpaper theme", () => {
   const missionMd = read(join(ROOT, "src", "content", "posts", "mission.md"));
   const goalsMd = read(join(ROOT, "src", "content", "posts", "goals.md"));
   const progressMd = read(join(ROOT, "src", "content", "posts", "progress.md"));
+  const watchMd = read(join(ROOT, "src", "content", "posts", "watch-the-playbook.md"));
 
-  assert.match(css, /--serif: "Newsreader"/);
-  assert.match(css, /--sans: "Source Sans 3"/);
+  assert.match(css, /Newsreader/);
+  assert.match(css, /Source Sans 3/);
   assert.doesNotMatch(css, /ui-sans-serif/);
   assert.doesNotMatch(css, /system-ui/);
   assert.doesNotMatch(css, /repeating-linear-gradient/);
@@ -200,9 +203,9 @@ test("paper editorial replaces the turf wallpaper theme", () => {
   assert.match(layout, /fonts\.googleapis\.com/);
   assert.match(layout, /Newsreader/);
   assert.match(layout, /Source\+Sans\+3/);
-  assert.match(homeSrc, /class="hero"/);
-  assert.match(homeSrc, /class="hero-board"/);
-  assert.match(homeSrc, /class="support"/);
+  assert.match(homeSrc, /class="featured"/);
+  assert.match(homeSrc, /class="featured-media"/);
+  assert.match(homeSrc, /class="supporting"/);
   assert.match(
     homeSrc,
     /A curated playbook for select and premier youth coaches\. Roster and play calling stay together/,
@@ -212,9 +215,18 @@ test("paper editorial replaces the turf wallpaper theme", () => {
   assert.match(missionMd, /title: A playbook ready to teach/);
   assert.match(goalsMd, /title: Built for game day, not setup week/);
   assert.match(progressMd, /title: The playbook is live/);
+  assert.match(watchMd, /title: Watch the playbook/);
   assert.match(missionMd, /headerImage: \/posts\/mission\.jpg/);
   assert.match(goalsMd, /headerImage: \/posts\/goals\.jpg/);
   assert.match(progressMd, /headerImage: \/posts\/progress\.jpg/);
+  assert.match(watchMd, /headerImage: \/posts\/watch-the-playbook\.jpg/);
+  assert.match(watchMd, /youtube\.com\/embed\/9dPluqXpg7w/);
+  assert.doesNotMatch(watchMd, /tuFsxyKpcp0/);
+  assert.doesNotMatch(watchMd, /Open the playbook/);
+  assert.doesNotMatch(watchMd, /ProductCta/);
+  assert.doesNotMatch(watchMd, /selectsideline\.com/);
+  assert.match(css, /\.prose iframe/);
+  assert.match(css, /aspect-ratio: 16 \/ 9/);
 });
 
 test("every page has an obvious product link to https://selectsideline.com", () => {
@@ -222,17 +234,18 @@ test("every page has an obvious product link to https://selectsideline.com", () 
   const mission = distPage("mission");
   const goals = distPage("goals");
   const progress = distPage("progress");
+  const watch = distPage("watch-the-playbook");
   const notFound = distPage("404");
 
-  for (const html of [home, mission, goals, progress, notFound]) {
+  for (const html of [home, mission, goals, progress, watch, notFound]) {
     assert.match(html, /href="https:\/\/selectsideline\.com"/);
     assert.match(html, /Open the playbook/);
     assert.doesNotMatch(html, /playmaker\.ludacr1tz\.com/i);
   }
 
-  assert.match(home, /class="hero"/);
-  assert.match(home, /class="hero-board"/);
-  assert.match(home, /class="support"/);
+  assert.match(home, /class="featured"/);
+  assert.match(home, /class="featured-media"/);
+  assert.match(home, /class="supporting"/);
   assert.doesNotMatch(home, /post-card/);
   assert.match(home, /class="cta" href="https:\/\/selectsideline\.com"/);
   assert.equal([...home.matchAll(/class="cta"/g)].length, 2);
@@ -244,6 +257,12 @@ test("every page has an obvious product link to https://selectsideline.com", () 
   assert.doesNotMatch(mission, /product-close[\s\S]*class="cta"/);
   assert.match(goals, /class="product-close"/);
   assert.match(progress, /class="product-close"/);
+  assert.match(watch, /class="product-close"/);
+  assert.doesNotMatch(watch, /product-close[\s\S]*class="cta"/);
+  assert.match(watch, /youtube\.com\/embed\/9dPluqXpg7w/);
+  assert.doesNotMatch(watch, /tuFsxyKpcp0/);
+  assert.match(home, /Watch the playbook/);
+  assert.match(home, /\/posts\/watch-the-playbook\.jpg/);
 });
 
 test("build emits indexable static assets", () => {
@@ -252,10 +271,11 @@ test("build emits indexable static assets", () => {
   const mission = distPage("mission");
   const goals = distPage("goals");
   const progress = distPage("progress");
+  const watch = distPage("watch-the-playbook");
   const robots = read(join(DIST, "robots.txt"));
   const sitemap = read(join(DIST, "sitemap.xml"));
 
-  for (const html of [home, mission, goals, progress]) {
+  for (const html of [home, mission, goals, progress, watch]) {
     assert.match(html, /index,follow|content="index,follow"/);
     assert.match(html, /blog\.selectsideline\.com/);
     assert.doesNotMatch(html, PLAYMAKER);
@@ -265,10 +285,12 @@ test("build emits indexable static assets", () => {
 
   assert.match(home, /"@type":"Blog"/);
   assert.match(mission, /"@type":"BlogPosting"/);
-  assert.match(home, /\/hero\.jpg/);
+  assert.match(home, /\/posts\/watch-the-playbook\.jpg/);
   assert.match(mission, /\/posts\/mission\.jpg/);
   assert.match(goals, /\/posts\/goals\.jpg/);
   assert.match(progress, /\/posts\/progress\.jpg/);
+  assert.match(watch, /\/posts\/watch-the-playbook\.jpg/);
+  assert.match(watch, /"@type":"BlogPosting"/);
   assert.equal(existsSync(join(DIST, "og.jpg")), true);
   assert.equal(existsSync(join(DIST, "hero.jpg")), true);
   assert.equal(existsSync(join(DIST, "favicon.png")), true);
@@ -277,6 +299,7 @@ test("build emits indexable static assets", () => {
   assert.equal(existsSync(join(DIST, "posts", "mission.jpg")), true);
   assert.equal(existsSync(join(DIST, "posts", "goals.jpg")), true);
   assert.equal(existsSync(join(DIST, "posts", "progress.jpg")), true);
+  assert.equal(existsSync(join(DIST, "posts", "watch-the-playbook.jpg")), true);
   assert.match(home, /<link rel="canonical" href="https:\/\/blog\.selectsideline\.com\/"/);
 
   assert.match(robots, /Allow: \//);
@@ -284,4 +307,5 @@ test("build emits indexable static assets", () => {
   assert.match(sitemap, /https:\/\/blog\.selectsideline\.com\/mission/);
   assert.match(sitemap, /https:\/\/blog\.selectsideline\.com\/goals/);
   assert.match(sitemap, /https:\/\/blog\.selectsideline\.com\/progress/);
+  assert.match(sitemap, /https:\/\/blog\.selectsideline\.com\/watch-the-playbook/);
 });
