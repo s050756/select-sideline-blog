@@ -50,12 +50,12 @@ Feedback stays on the app (`feedback@selectsideline.com`). This site has no feed
 
 All visual media must be Grok Imagine (`grok-imagine-image-2.0`). Files live at:
 
-- `public/og.png` (1200 x 630)
-- `public/hero.png` (1920 x 1080 homepage hero)
+- `public/og.jpg` (1200 x 630)
+- `public/hero.jpg` (1920 x 1080 homepage hero)
 - `public/favicon.png`
-- `public/posts/mission.png`
-- `public/posts/goals.png`
-- `public/posts/progress.png`
+- `public/posts/mission.jpg`
+- `public/posts/goals.jpg`
+- `public/posts/progress.jpg`
 
 Every page links to the live product at `https://selectsideline.com` (header, footer, homepage hero CTA, and a closing CTA on each post).
 

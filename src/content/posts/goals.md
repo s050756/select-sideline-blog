@@ -2,7 +2,7 @@
 title: Help select coaches adopt a simple sideline tool
 description: What we are aiming for. A tool select and premier youth coaches will actually use on game day, not another login wall.
 pubDate: 2026-08-12
-headerImage: /posts/goals.png
+headerImage: /posts/goals.jpg
 headerAlt: Empty football field at dusk with a coach headset and an orange cone.
 ---
 

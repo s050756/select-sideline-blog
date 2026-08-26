@@ -3,19 +3,16 @@
   Referrer-Policy: strict-origin-when-cross-origin
   X-Frame-Options: DENY
 
-/og.png
+/og.jpg
   Cache-Control: public, max-age=86400
 
-/hero.png
+/hero.jpg
   Cache-Control: public, max-age=86400
 
 /favicon.png
   Cache-Control: public, max-age=86400
 
-/favicon-32.png
-  Cache-Control: public, max-age=86400
-
-/apple-touch.png
+/apple-touch-icon.png
   Cache-Control: public, max-age=86400
 
 /icon-512.png

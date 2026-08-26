@@ -98,6 +98,33 @@ test("Grok Imagine media slots are wired to public/ JPG paths", () => {
   assert.match(read(join(ROOT, "src", "lib", "site.ts")), /APP_URL = "https:\/\/selectsideline\.com"/);
 });
 
+test("paper editorial replaces the turf wallpaper theme", () => {
+  const css = read(join(ROOT, "src", "styles", "global.css"));
+  const layout = read(join(ROOT, "src", "layouts", "BaseLayout.astro"));
+  const homeSrc = read(join(ROOT, "src", "pages", "index.astro"));
+  const missionMd = read(join(ROOT, "src", "content", "posts", "mission.md"));
+  const goalsMd = read(join(ROOT, "src", "content", "posts", "goals.md"));
+  const progressMd = read(join(ROOT, "src", "content", "posts", "progress.md"));
+
+  assert.match(css, /--serif: "Newsreader"/);
+  assert.match(css, /--sans: "Source Sans 3"/);
+  assert.doesNotMatch(css, /ui-sans-serif/);
+  assert.doesNotMatch(css, /system-ui/);
+  assert.doesNotMatch(css, /repeating-linear-gradient/);
+  assert.doesNotMatch(css, /#facc15/);
+  assert.match(layout, /fonts\.googleapis\.com/);
+  assert.match(layout, /Newsreader/);
+  assert.match(layout, /Source\+Sans\+3/);
+  assert.match(homeSrc, /class="hero"/);
+  assert.match(homeSrc, /class="hero-board"/);
+  assert.match(homeSrc, /class="support"/);
+  assert.doesNotMatch(homeSrc, /post-card/);
+  assert.doesNotMatch(homeSrc, /<h2>Posts<\/h2>/);
+  assert.match(missionMd, /headerImage: \/posts\/mission\.jpg/);
+  assert.match(goalsMd, /headerImage: \/posts\/goals\.jpg/);
+  assert.match(progressMd, /headerImage: \/posts\/progress\.jpg/);
+});
+
 test("every page has an obvious product link to https://selectsideline.com", () => {
   const home = distPage("index");
   const mission = distPage("mission");
@@ -112,6 +139,9 @@ test("every page has an obvious product link to https://selectsideline.com", () 
   }
 
   assert.match(home, /class="hero"/);
+  assert.match(home, /class="hero-board"/);
+  assert.match(home, /class="support"/);
+  assert.doesNotMatch(home, /post-card/);
   assert.match(home, /class="cta" href="https:\/\/selectsideline\.com"/);
   assert.match(mission, /class="product-close"/);
   assert.match(goals, /class="product-close"/);

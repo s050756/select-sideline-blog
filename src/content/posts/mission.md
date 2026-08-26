@@ -2,7 +2,7 @@
 title: A curated playbook for select-age youth
 description: Why Select Sideline exists. A simple, teachable playbook for 3rd through 8th grade select teams, with roster and play calling in one place.
 pubDate: 2026-08-04
-headerImage: /posts/mission.png
+headerImage: /posts/mission.jpg
 headerAlt: Clipboard of youth football plays and a coach headset on a sideline bench.
 ---
 
