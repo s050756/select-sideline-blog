@@ -5,7 +5,7 @@
   --ink-soft: #3a362f;
   --muted: #6a645b;
   --hairline: rgba(22, 20, 16, 0.12);
-  --turf: #1a4530;
+  --turf: #1f5a3d;
   --amber: #c6901a;
   --amber-deep: #a87610;
   --measure: 66ch;
@@ -417,12 +417,32 @@ h2 {
 }
 
 @media (max-width: 860px) {
-  .hero-board {
-    padding: 4.2rem 1.4rem 1.5rem;
+  .hero-frame {
+    background: transparent;
   }
 
-  .hero-board h1 {
+  .hero-board {
+    position: static;
+    padding: 1.35rem 0 0;
+    background: none;
+  }
+
+  .hero-board .kicker,
+  .hero-board .lede,
+  .hero-board time {
+    color: var(--muted);
+  }
+
+  .hero-board h1,
+  .hero-board h1 a,
+  .hero-board h1 a:hover {
+    color: var(--ink);
     max-width: none;
+  }
+
+  .hero-media img {
+    min-height: 14rem;
+    max-height: none;
   }
 
   .support {
