@@ -2,7 +2,7 @@
 
 Ship grok-imagine-image-2.0 files only. Copy bytes. Do not regenerate.
 
-Photos are JPEG and icons are PNG. They are decoded from `scripts/imagine` at build.
+Photos are JPEG and icons are PNG. The live paths are committed in `public/` so `astro build` copies them. `scripts/decode-imagine.mjs` still writes over those files when every chunk for an asset is present.
 
 | File | Size | Use |
 | --- | --- | --- |

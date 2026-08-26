@@ -87,6 +87,29 @@ test("site source has no PlayMaker brand strings", () => {
   assert.deepEqual(hits, []);
 });
 
+test("required Imagine bytes are committed in public/", () => {
+  const jpeg = Buffer.from([0xff, 0xd8, 0xff]);
+  const png = Buffer.from([0x89, 0x50, 0x4e, 0x47, 0x0d, 0x0a, 0x1a, 0x0a]);
+  const files = [
+    ["public/og.jpg", jpeg],
+    ["public/hero.jpg", jpeg],
+    ["public/favicon.png", png],
+    ["public/posts/mission.jpg", jpeg],
+    ["public/posts/goals.jpg", jpeg],
+    ["public/posts/progress.jpg", jpeg],
+  ];
+  for (const [rel, magic] of files) {
+    const buf = readFileSync(join(ROOT, rel));
+    assert.ok(buf.length > 100, `${rel} is too small`);
+    assert.deepEqual(buf.subarray(0, magic.length), magic, rel);
+  }
+  const ignore = read(join(ROOT, ".gitignore"));
+  assert.doesNotMatch(ignore, /public\/og\.jpg/);
+  assert.doesNotMatch(ignore, /public\/hero\.jpg/);
+  assert.doesNotMatch(ignore, /public\/favicon\.png/);
+  assert.doesNotMatch(ignore, /public\/posts\/\*\.jpg/);
+});
+
 test("Grok Imagine media slots are wired to public/ JPG paths", () => {
   const site = read(join(ROOT, "src", "lib", "site.ts"));
   assert.match(site, /og: "\/og\.jpg"/);
@@ -171,6 +194,12 @@ test("build emits indexable static assets", () => {
   assert.match(mission, /\/posts\/mission\.jpg/);
   assert.match(goals, /\/posts\/goals\.jpg/);
   assert.match(progress, /\/posts\/progress\.jpg/);
+  assert.equal(existsSync(join(DIST, "og.jpg")), true);
+  assert.equal(existsSync(join(DIST, "hero.jpg")), true);
+  assert.equal(existsSync(join(DIST, "favicon.png")), true);
+  assert.equal(existsSync(join(DIST, "posts", "mission.jpg")), true);
+  assert.equal(existsSync(join(DIST, "posts", "goals.jpg")), true);
+  assert.equal(existsSync(join(DIST, "posts", "progress.jpg")), true);
   assert.match(home, /<link rel="canonical" href="https:\/\/blog\.selectsideline\.com\/"/);
 
   assert.match(robots, /Allow: \//);
