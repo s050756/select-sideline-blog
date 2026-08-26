@@ -36,34 +36,40 @@ if (!featured) {
         />
       </a>
       <div class="hero-board">
-        <p class="kicker">Featured</p>
-        <h1>
-          <a href={`/${featured.id}`}>{featured.data.title}</a>
-        </h1>
-        <p class="lede">{featured.data.description}</p>
-        <time datetime={featured.data.pubDate.toISOString()}>
-          {formatDate(featured.data.pubDate)}
-        </time>
-        <ProductCta />
+        <div class="wrap">
+          <p class="kicker">Featured</p>
+          <h1>
+            <a href={`/${featured.id}`}>{featured.data.title}</a>
+          </h1>
+          <p class="lede">{featured.data.description}</p>
+          <time datetime={featured.data.pubDate.toISOString()}>
+            {formatDate(featured.data.pubDate)}
+          </time>
+          <ProductCta />
+        </div>
       </div>
     </div>
   </section>
   <div class="home-body">
     <p class="home-standfirst">
-      Notes from the sideline. A curated youth playbook for select-age 3rd through 8th grade teams.
-      The live product is <a href={APP_URL}>https://selectsideline.com</a>.
+      A curated youth playbook for select-age 3rd through 8th grade teams. Easy to teach, roster next
+      to play calling, offline, and free. The live product is
+      <a href={APP_URL}>https://selectsideline.com</a>.
     </p>
-    <section class="support" aria-label="More notes">
+    <p class="kicker home-label">More stories</p>
+    <section class="support" aria-label="More stories">
       {
         supporting.map((post) => (
           <a class="support-story" href={`/${post.id}`}>
-            <img
-              src={postMediaPath(post.id)}
-              alt={post.data.headerAlt}
-              width="1600"
-              height="900"
-              loading="lazy"
-            />
+            <span class="support-media">
+              <img
+                src={postMediaPath(post.id)}
+                alt={post.data.headerAlt}
+                width="1600"
+                height="900"
+                loading="lazy"
+              />
+            </span>
             <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
             <h2>{post.data.title}</h2>
             <p>{post.data.description}</p>
