@@ -44,6 +44,57 @@ function stripJsonc(source) {
   return source.replace(/\/\/.*$/gm, "").replace(/,(\s*[}\]])/g, "$1");
 }
 
+function lockfileVersions(name) {
+  const lock = JSON.parse(read(join(ROOT, "package-lock.json")));
+  const versions = [];
+  for (const [path, entry] of Object.entries(lock.packages ?? {})) {
+    if (path === `node_modules/${name}` || path.endsWith(`/node_modules/${name}`)) {
+      versions.push(entry.version);
+    }
+  }
+  return versions;
+}
+
+function versionParts(version) {
+  return version.split(".").map((part) => Number.parseInt(part, 10));
+}
+
+function versionGte(version, minimum) {
+  const left = versionParts(version);
+  const right = versionParts(minimum);
+  for (let i = 0; i < right.length; i += 1) {
+    const a = left[i] ?? 0;
+    const b = right[i] ?? 0;
+    if (a !== b) {
+      return a > b;
+    }
+  }
+  return true;
+}
+
+test("patched dependencies close the exported npm security alerts", () => {
+  const pkg = JSON.parse(read(join(ROOT, "package.json")));
+  assert.match(pkg.dependencies.astro, /^\^7\.(?:[1-9]\d*|[2-9])\./);
+  assert.match(pkg.engines.node, />=22\.12/);
+  assert.match(pkg.overrides.esbuild, /\^0\.28\./);
+  assert.match(pkg.overrides.sharp, /\^0\.35\./);
+
+  const astro = lockfileVersions("astro");
+  const esbuild = lockfileVersions("esbuild");
+  const sharp = lockfileVersions("sharp");
+  assert.ok(astro.length > 0, "astro is locked");
+  assert.ok(esbuild.length > 0, "esbuild is locked");
+  assert.ok(sharp.every((version) => versionGte(version, "0.35.0")), String(sharp));
+  assert.ok(astro.every((version) => versionGte(version, "7.1.0")), String(astro));
+  for (const version of esbuild) {
+    const [major, minor, patch] = versionParts(version);
+    const vulnerable =
+      (major === 0 && minor === 27 && patch >= 3) ||
+      (major === 0 && minor === 28 && patch === 0);
+    assert.equal(vulnerable, false, `esbuild ${version} is in GHSA-g7r4-m6w7-qqqr range`);
+  }
+});
+
 test("wrangler.jsonc is an assets-only free Worker named select-sideline-blog", () => {
   const config = JSON.parse(stripJsonc(read(join(ROOT, "wrangler.jsonc"))));
   assert.equal(config.name, "select-sideline-blog");
