@@ -6,12 +6,14 @@ const year = new Date().getUTCFullYear();
 ---
 
 <footer class="site-footer">
-  <div class="wrap">
-    <p>Copyright {year} {SITE_NAME}.</p>
-    <p>
-      Use the live product at <a href={APP_URL}>https://selectsideline.com</a>.
-      Send product notes from the app or {FEEDBACK_EMAIL}.
-    </p>
+  <div class="wrap footer-inner">
+    <div>
+      <p>Copyright {year} {SITE_NAME}.</p>
+      <p>
+        Use the live product at <a href={APP_URL}>https://selectsideline.com</a>.
+        Send product notes from the app or {FEEDBACK_EMAIL}.
+      </p>
+    </div>
     <p class="footer-cta">
       <ProductCta label="Use the app" />
     </p>
