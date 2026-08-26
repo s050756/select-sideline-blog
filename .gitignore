@@ -6,9 +6,5 @@ dist/
 .env.*
 !.env.example
 .DS_Store
-public/og.jpg
-public/hero.jpg
-public/favicon.png
 public/apple-touch-icon.png
 public/icon-512.png
-public/posts/*.jpg

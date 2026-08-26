@@ -1,4 +1,4 @@
-import { mkdir, readFile, writeFile } from "node:fs/promises";
+import { access, mkdir, readFile, writeFile } from "node:fs/promises";
 import { dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -16,10 +16,22 @@ const assets = [
 
 for (const asset of assets) {
   const dest = join(root, "..", asset.dest);
+  const missing = [];
+  for (const part of asset.parts) {
+    try {
+      await access(join(root, part));
+    } catch {
+      missing.push(part);
+    }
+  }
+  if (missing.length > 0) {
+    console.warn(`skip ${asset.dest}: missing ${missing[0]}`);
+    continue;
+  }
   await mkdir(dirname(dest), { recursive: true });
   let b64 = "";
   for (const part of asset.parts) {
-    b64 += (await readFile(join(root, part), "utf8"));
+    b64 += await readFile(join(root, part), "utf8");
   }
   await writeFile(dest, Buffer.from(b64.replace(/\s+/g, ""), "base64"));
 }
