@@ -10,10 +10,12 @@ export const MEDIA = {
   og: "/og.jpg",
   hero: "/hero.jpg",
   favicon: "/favicon.png",
+  mark: "/mark.png",
   posts: {
     mission: "/posts/mission.jpg",
     goals: "/posts/goals.jpg",
     progress: "/posts/progress.jpg",
+    watchThePlaybook: "/posts/watch-the-playbook.jpg",
   },
 } as const;
 

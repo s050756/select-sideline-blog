@@ -13,3 +13,4 @@ Photos are JPEG and icons are PNG. The live bytes are committed in `public/` so 
 | `posts/mission.jpg` | 16:9 | Mission post header |
 | `posts/goals.jpg` | 16:9 | Goals post header |
 | `posts/progress.jpg` | 16:9 | Progress post header |
+| `posts/watch-the-playbook.jpg` | 16:9 | Watch the playbook post header |

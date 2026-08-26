@@ -38,8 +38,9 @@ Custom domain attach happens on the first successful `wrangler deploy` in the Cl
 
 ## Content
 
-Not a CMS. Three hardcoded Markdown posts:
+Not a CMS. Four hardcoded Markdown posts:
 
+- `/watch-the-playbook`
 - `/mission`
 - `/goals`
 - `/progress`
@@ -56,6 +57,7 @@ All visual media must be Grok Imagine (`grok-imagine-image-2.0`). Files live at:
 - `public/posts/mission.jpg`
 - `public/posts/goals.jpg`
 - `public/posts/progress.jpg`
+- `public/posts/watch-the-playbook.jpg`
 
 Every page links to the live product at `https://selectsideline.com` (header, footer, homepage hero CTA, and a closing CTA on each post).
 
