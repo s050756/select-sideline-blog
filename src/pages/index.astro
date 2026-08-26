@@ -2,78 +2,68 @@
 import { getCollection } from "astro:content";
 import ProductCta from "../components/ProductCta.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import {
-  MEDIA,
-  SITE_DESCRIPTION,
-  SITE_TITLE,
-  blogJsonLd,
-  formatDate,
-  postMediaPath,
-} from "../lib/site";
+import { SITE_DESCRIPTION, SITE_TITLE, blogJsonLd, formatDate } from "../lib/site";
 
 const posts = (await getCollection("posts")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
-const featured = posts[0];
-const supporting = posts.slice(1);
-
-if (!featured) {
-  throw new Error("Home needs at least one post");
-}
+const [featured, ...rest] = posts;
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION} pathname="/" jsonLd={blogJsonLd()}>
-  <section class="hero" slot="banner">
-    <div class="hero-frame">
-      <a class="hero-media" href={`/${featured.id}`}>
-        <img
-          src={MEDIA.hero}
-          alt={featured.data.headerAlt}
-          width="1920"
-          height="1080"
-          fetchpriority="high"
-        />
-      </a>
-      <div class="hero-board">
-        <div class="wrap">
-          <p class="kicker">Featured</p>
-          <h1>
-            <a href={`/${featured.id}`}>{featured.data.title}</a>
-          </h1>
-          <p class="lede">{featured.data.description}</p>
-          <time datetime={featured.data.pubDate.toISOString()}>
-            {formatDate(featured.data.pubDate)}
-          </time>
-          <ProductCta />
-        </div>
-      </div>
-    </div>
-  </section>
-  <div class="home-body">
-    <p class="home-standfirst">
+  <section class="intro">
+    <p class="kicker">Select Sideline</p>
+    <h1>Notes from the sideline</h1>
+    <p class="lede">
       A curated playbook for select and premier youth coaches. Roster and play calling stay together,
       work offline, and remain free to use.
     </p>
-    <p class="kicker home-label">More stories</p>
-    <section class="support" aria-label="More stories">
-      {
-        supporting.map((post) => (
-          <a class="support-story" href={`/${post.id}`}>
-            <span class="support-media">
-              <img
-                src={postMediaPath(post.id)}
-                alt={post.data.headerAlt}
-                width="1600"
-                height="900"
-                loading="lazy"
-              />
-            </span>
-            <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
-            <h2>{post.data.title}</h2>
-            <p>{post.data.description}</p>
+    <ProductCta />
+  </section>
+
+  {
+    featured && (
+      <section class="featured" aria-labelledby="featured-title">
+        <a class="featured-media" href={`/${featured.id}`}>
+          <img
+            src={featured.data.headerImage}
+            alt={featured.data.headerAlt}
+            width="1600"
+            height="900"
+          />
+        </a>
+        <div class="featured-copy">
+          <p class="kicker">Latest</p>
+          <time datetime={featured.data.pubDate.toISOString()}>
+            {formatDate(featured.data.pubDate)}
+          </time>
+          <h2 id="featured-title">
+            <a href={`/${featured.id}`}>{featured.data.title}</a>
+          </h2>
+          <p class="lede">{featured.data.description}</p>
+          <a class="more" href={`/${featured.id}`}>
+            Read the note
           </a>
+        </div>
+      </section>
+    )
+  }
+
+  <section class="supporting" aria-labelledby="more-notes">
+    <h2 id="more-notes">More notes</h2>
+    <ul class="support-grid">
+      {
+        rest.map((post) => (
+          <li>
+            <a class="support-card" href={`/${post.id}`}>
+              <img src={post.data.headerImage} alt={post.data.headerAlt} width="800" height="500" />
+              <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
+              <h3>{post.data.title}</h3>
+              <p>{post.data.description}</p>
+            </a>
+          </li>
         ))
       }
-    </section>
-  </div>
+    </ul>
+  </section>
 </BaseLayout>

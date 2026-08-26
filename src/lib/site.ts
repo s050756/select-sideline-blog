@@ -1,16 +1,15 @@
 export const SITE_NAME = "Select Sideline";
-export const SITE_TITLE = "Select Sideline Blog";
+export const SITE_TITLE = "Notes from the sideline";
 export const CANONICAL_ORIGIN = "https://blog.selectsideline.com";
 export const APP_URL = "https://selectsideline.com";
 export const FEEDBACK_EMAIL = "feedback@selectsideline.com";
-export const THEME_COLOR = "#f3efe6";
+export const THEME_COLOR = "#163d2b";
 
 /** Grok Imagine (grok-imagine-image-2.0) drop-in paths. Do not generate these files in-repo. */
 export const MEDIA = {
   og: "/og.jpg",
   hero: "/hero.jpg",
   favicon: "/favicon.png",
-  mark: "/mark.png",
   posts: {
     mission: "/posts/mission.jpg",
     goals: "/posts/goals.jpg",
@@ -21,20 +20,7 @@ export const MEDIA = {
 export const OG_IMAGE_PATH = MEDIA.og;
 
 export const SITE_DESCRIPTION =
-  "A curated playbook for select and premier youth coaches. Roster and play calling stay together, work offline, and remain free to use.";
-
-export function postMediaPath(id: string): string {
-  switch (id) {
-    case "mission":
-      return MEDIA.posts.mission;
-    case "goals":
-      return MEDIA.posts.goals;
-    case "progress":
-      return MEDIA.posts.progress;
-    default:
-      return MEDIA.hero;
-  }
-}
+  "Notes from the sideline. A playbook for select and premier youth coaches of grade-school and middle-school teams, with roster next to the call. Offline and free.";
 
 export function canonicalUrl(pathname = "/"): string {
   if (pathname === "/" || pathname === "") {

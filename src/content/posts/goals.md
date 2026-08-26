@@ -1,17 +1,13 @@
 ---
 title: Built for game day, not setup week
-description: What we are aiming for. A tool select and premier youth coaches will actually use on game day, not another login wall.
+description: Select Sideline is meant for select and premier youth coaches to use on game day, without a long setup or another login.
 pubDate: 2026-08-12
 headerImage: /posts/goals.jpg
 headerAlt: Empty football field at dusk with a coach headset and an orange cone.
 ---
 
-The product goal is straightforward. Help select and premier youth coaches adopt one simple sideline tool.
+The aim is adoption on game day. Select and premier youth coaches should be able to open the tool and use it the same week, not after a long setup.
 
-That means the playbook has to be small enough to teach quickly. Roster and play calling have to live in the same place. A coach should be able to use it on a phone or tablet without creating an account.
+The playbook stays small enough to teach. Names, numbers, and who is on the field sit next to the call. A coach can begin without creating an account.
 
-We are not chasing a feature list for its own sake. If a coach can set the roster, call a play, and share the live game with another phone on the sideline, the tool is doing its job.
-
-Feedback stays in the app ([feedback@selectsideline.com](mailto:feedback@selectsideline.com)). This blog is the public story, not a support inbox.
-
-Open the live product at [https://selectsideline.com](https://selectsideline.com).
+If a staff can set a roster, call a play, and join the same game from a second phone, the product is doing its work.

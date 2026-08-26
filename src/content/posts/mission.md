@@ -6,10 +6,8 @@ headerImage: /posts/mission.jpg
 headerAlt: Clipboard of youth football plays and a coach headset on a sideline bench.
 ---
 
-Select Sideline is a curated playbook for select and premier youth coaches. The job is to make the next play easy to teach, keep a roster next to play calling, and work offline on a phone or tablet. It is free.
+Select Sideline exists so select and premier youth coaches can teach the next play without building a system from an empty field.
 
-This is not a blank designer. You do not start from an empty field and invent a system from scratch. The plays are already chosen, so a coach can teach them and call them.
+The playbook is already curated. Roster and play calling live in one place, on a phone or tablet, with or without a signal. There is no account required, and there is no charge.
 
-This is also not a film platform. We are not trying to replace Hudl or a video room. Select Sideline is for the sideline: who is on, what you are calling, and a sheet you can print.
-
-If you coach select or premier youth, open the live product at [https://selectsideline.com](https://selectsideline.com).
+This is a sideline tool, not a film platform. Staffs that already use Hudl can keep it. Select Sideline is for who is on the field, what is being called, and a sheet an assistant can hold.

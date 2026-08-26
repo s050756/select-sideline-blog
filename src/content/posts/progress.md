@@ -1,22 +1,13 @@
 ---
 title: The playbook is live
-description: Select Sideline is live at selectsideline.com with playbook, roster, share and join, print sheets, and in-app feedback.
+description: Select Sideline is live. Browse the playbook, keep a roster, call plays, share a game, and print a sheet.
 pubDate: 2026-08-20
 headerImage: /posts/progress.jpg
 headerAlt: Coach headset, laminated play sheet, and a tablet on a sideline bench.
 ---
 
-Select Sideline is live at [https://selectsideline.com](https://selectsideline.com).
+Select Sideline is live. Select and premier youth coaches can open the playbook today.
 
-What you can do today:
+Available now: a curated playbook, a roster with names and numbers, sideline play calling, a shared live game, printed sheets, and in-app feedback. Solo use stays in the browser. Sharing is optional when another coach needs the same game.
 
-- Browse a curated youth playbook
-- Keep a roster with names, numbers, and who is on
-- Call plays from the sideline
-- Share a game and join it from another device
-- Print call sheets
-- Send feedback from inside the app
-
-Solo use stays in the browser. Share and join is opt-in when you want another coach on the same live game.
-
-We will keep the tool simple. New posts here will cover what changed, not a marketing scoreboard.
+The product will stay small. Notes here will describe what changed.
