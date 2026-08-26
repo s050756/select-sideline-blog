@@ -12,10 +12,10 @@ async function loadB64(prefix) {
   if (names.includes(full)) {
     return await readFile(join(dir, full), "utf8");
   }
-  const re = new RegExp(
-    `^${prefix.replace(/[.*+?^${}()|[\]\\]/g, "\\$&")}\.\\d{2}\.b64$`
-  );
-  const parts = names.filter((n) => re.test(n)).sort();
+  const parts = names
+    .filter((n) => n.startsWith(`${prefix}.`) && n.endsWith(".b64"))
+    .filter((n) => /^\d{2}$/.test(n.slice(prefix.length + 1, -4)))
+    .sort();
   if (!parts.length) {
     throw new Error(`missing Grok Imagine parts for ${prefix}`);
   }
