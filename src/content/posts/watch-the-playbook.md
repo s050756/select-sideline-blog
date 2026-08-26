@@ -10,6 +10,8 @@ A Friday night should not start with a login wall. Select Sideline is a curated 
 
 This walk-through is the live app. Browse the playbook, keep a roster, assign players, call a play, share a game with a code, and print a sheet. No account. No ads on the call sheet.
 
-<iframe width="560" height="315" src="https://www.youtube.com/embed/9dPluqXpg7w" title="See Select Sideline" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+<figure class="media-frame">
+<iframe src="https://www.youtube.com/embed/9dPIuqXpg7w" title="See Select Sideline" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</figure>
 
 The loop on the video is the same one a staff can run on the sideline tonight.

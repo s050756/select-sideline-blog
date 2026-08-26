@@ -220,12 +220,24 @@ test("paper editorial replaces the turf wallpaper theme", () => {
   assert.match(goalsMd, /headerImage: \/posts\/goals\.jpg/);
   assert.match(progressMd, /headerImage: \/posts\/progress\.jpg/);
   assert.match(watchMd, /headerImage: \/posts\/watch-the-playbook\.jpg/);
-  assert.match(watchMd, /youtube\.com\/embed\/9dPluqXpg7w/);
+  assert.match(watchMd, /youtube\.com\/embed\/9dPIuqXpg7w/);
+  assert.match(watchMd, /<figure class="media-frame">[\s\S]*youtube\.com\/embed\/9dPIuqXpg7w[\s\S]*<\/figure>/);
+  const wrongYoutubeId = ["9dP", "l", "uqXpg7w"].join("");
+  const wrongHits = [];
+  for (const path of walk(ROOT).filter((file) => TEXT_EXT.has(extname(file)))) {
+    if (read(path).includes(wrongYoutubeId)) {
+      wrongHits.push(path.replace(ROOT + "/", ""));
+    }
+  }
+  assert.deepEqual(wrongHits, []);
+  assert.doesNotMatch(watchMd, /width="560"/);
+  assert.doesNotMatch(watchMd, /height="315"/);
   assert.doesNotMatch(watchMd, /tuFsxyKpcp0/);
   assert.doesNotMatch(watchMd, /Open the playbook/);
   assert.doesNotMatch(watchMd, /ProductCta/);
   assert.doesNotMatch(watchMd, /selectsideline\.com/);
   assert.match(css, /\.prose iframe/);
+  assert.match(css, /\.media-frame:has\(iframe\)/);
   assert.match(css, /aspect-ratio: 16 \/ 9/);
 });
 
@@ -259,7 +271,11 @@ test("every page has an obvious product link to https://selectsideline.com", () 
   assert.match(progress, /class="product-close"/);
   assert.match(watch, /class="product-close"/);
   assert.doesNotMatch(watch, /product-close[\s\S]*class="cta"/);
-  assert.match(watch, /youtube\.com\/embed\/9dPluqXpg7w/);
+  assert.match(watch, /youtube\.com\/embed\/9dPIuqXpg7w/);
+  assert.match(watch, /class="media-frame"[\s\S]*youtube\.com\/embed\/9dPIuqXpg7w/);
+  assert.doesNotMatch(watch, new RegExp(["9dP", "l", "uqXpg7w"].join("")));
+  assert.doesNotMatch(watch, /width="560"/);
+  assert.doesNotMatch(watch, /height="315"/);
   assert.doesNotMatch(watch, /tuFsxyKpcp0/);
   assert.match(home, /Watch the playbook/);
   assert.match(home, /\/posts\/watch-the-playbook\.jpg/);
