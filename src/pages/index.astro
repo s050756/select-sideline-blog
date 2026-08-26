@@ -2,45 +2,74 @@
 import { getCollection } from "astro:content";
 import ProductCta from "../components/ProductCta.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
-import { APP_URL, MEDIA, SITE_DESCRIPTION, SITE_TITLE, blogJsonLd, formatDate } from "../lib/site";
+import {
+  APP_URL,
+  MEDIA,
+  SITE_DESCRIPTION,
+  SITE_TITLE,
+  blogJsonLd,
+  formatDate,
+  postMediaPath,
+} from "../lib/site";
 
 const posts = (await getCollection("posts")).sort(
   (a, b) => b.data.pubDate.valueOf() - a.data.pubDate.valueOf(),
 );
+const featured = posts[0];
+const supporting = posts.slice(1);
+
+if (!featured) {
+  throw new Error("Home needs at least one post");
+}
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION} pathname="/" jsonLd={blogJsonLd()}>
   <section class="hero" slot="banner">
-    <img
-      src={MEDIA.hero}
-      alt="Empty football field at dusk under stadium lights."
-      width="1920"
-      height="1080"
-    />
-    <div class="hero-copy wrap">
-      <p class="kicker">Select Sideline</p>
-      <h1>Notes from the sideline</h1>
-      <p>A curated youth playbook for select-age 3rd through 8th grade teams.</p>
-      <ProductCta />
+    <div class="hero-frame">
+      <a class="hero-media" href={`/${featured.id}`}>
+        <img
+          src={MEDIA.hero}
+          alt={featured.data.headerAlt}
+          width="1920"
+          height="1080"
+          fetchpriority="high"
+        />
+      </a>
+      <div class="hero-board">
+        <p class="kicker">Featured</p>
+        <h1>
+          <a href={`/${featured.id}`}>{featured.data.title}</a>
+        </h1>
+        <p class="lede">{featured.data.description}</p>
+        <time datetime={featured.data.pubDate.toISOString()}>
+          {formatDate(featured.data.pubDate)}
+        </time>
+        <ProductCta />
+      </div>
     </div>
   </section>
-  <p class="lede">
-    Easy to teach, roster next to play calling, offline, and free. The live product is
-    <a href={APP_URL}>https://selectsideline.com</a>. This blog is the public story of why it
-    exists and what is live.
-  </p>
-  <h2>Posts</h2>
-  <ul class="post-list">
-    {
-      posts.map((post) => (
-        <li>
-          <a class="post-card" href={`/${post.id}`}>
+  <div class="home-body">
+    <p class="home-standfirst">
+      Notes from the sideline. A curated youth playbook for select-age 3rd through 8th grade teams.
+      The live product is <a href={APP_URL}>https://selectsideline.com</a>.
+    </p>
+    <section class="support" aria-label="More notes">
+      {
+        supporting.map((post) => (
+          <a class="support-story" href={`/${post.id}`}>
+            <img
+              src={postMediaPath(post.id)}
+              alt={post.data.headerAlt}
+              width="1600"
+              height="900"
+              loading="lazy"
+            />
             <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
             <h2>{post.data.title}</h2>
             <p>{post.data.description}</p>
           </a>
-        </li>
-      ))
-    }
-  </ul>
+        ))
+      }
+    </section>
+  </div>
 </BaseLayout>

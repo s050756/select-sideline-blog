@@ -3,7 +3,7 @@ import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import ProductCta from "../components/ProductCta.astro";
-import { blogPostingJsonLd, formatDate } from "../lib/site";
+import { APP_URL, blogPostingJsonLd, formatDate, postMediaPath } from "../lib/site";
 
 export async function getStaticPaths() {
   const posts = await getCollection("posts");
@@ -20,6 +20,7 @@ interface Props {
 const { post } = Astro.props;
 const { Content } = await render(post);
 const pathname = `/${post.id}`;
+const headerSrc = postMediaPath(post.id);
 ---
 
 <BaseLayout
@@ -34,16 +35,11 @@ const pathname = `/${post.id}`;
     updatedDate: post.data.updatedDate,
   })}
 >
-  <p class="kicker">Select Sideline</p>
-  <article>
-    <figure class="media-frame post-header">
-      <img
-        src={post.data.headerImage}
-        alt={post.data.headerAlt}
-        width="1600"
-        height="900"
-      />
-    </figure>
+  <figure class="post-media" slot="banner">
+    <img src={headerSrc} alt={post.data.headerAlt} width="1600" height="900" />
+  </figure>
+  <article class="post-body measure">
+    <p class="kicker">Select Sideline</p>
     <h1>{post.data.title}</h1>
     <p class="article-meta">
       <time datetime={post.data.pubDate.toISOString()}>{formatDate(post.data.pubDate)}</time>
@@ -51,12 +47,12 @@ const pathname = `/${post.id}`;
     <div class="prose">
       <Content />
     </div>
-    <p class="product-close">
-      Use the live product at <a href="https://selectsideline.com">https://selectsideline.com</a>.
-    </p>
-    <p class="product-close">
+    <div class="product-close">
+      <p>
+        Use the live product at <a href={APP_URL}>{APP_URL}</a>.
+      </p>
       <ProductCta />
-    </p>
+    </div>
   </article>
   <a class="back" href="/">Back to the blog</a>
 </BaseLayout>

@@ -9,12 +9,14 @@ import BaseLayout from "../layouts/BaseLayout.astro";
   pathname="/404"
   robots="noindex,follow"
 >
-  <p class="kicker">404</p>
-  <h1>Page not found</h1>
-  <p class="lede">
-    That URL is not a post on this blog. Head back to the
-    <a href="/">blog home</a> or open the live product at
-    <a href="https://selectsideline.com">https://selectsideline.com</a>.
-  </p>
-  <ProductCta />
+  <div class="page-copy measure">
+    <p class="kicker">404</p>
+    <h1>Page not found</h1>
+    <p class="lede">
+      That URL is not a post on this blog. Head back to the
+      <a href="/">blog home</a> or open the live product at
+      <a href="https://selectsideline.com">https://selectsideline.com</a>.
+    </p>
+    <ProductCta />
+  </div>
 </BaseLayout>

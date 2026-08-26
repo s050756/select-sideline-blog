@@ -3,7 +3,7 @@ export const SITE_TITLE = "Select Sideline Blog";
 export const CANONICAL_ORIGIN = "https://blog.selectsideline.com";
 export const APP_URL = "https://selectsideline.com";
 export const FEEDBACK_EMAIL = "feedback@selectsideline.com";
-export const THEME_COLOR = "#052e16";
+export const THEME_COLOR = "#f3efe6";
 
 /** Grok Imagine (grok-imagine-image-2.0) drop-in paths. Do not generate these files in-repo. */
 export const MEDIA = {
@@ -21,6 +21,19 @@ export const OG_IMAGE_PATH = MEDIA.og;
 
 export const SITE_DESCRIPTION =
   "Notes from Select Sideline, a curated youth football playbook and sideline tool for select-age 3rd through 8th grade teams.";
+
+export function postMediaPath(id: string): string {
+  switch (id) {
+    case "mission":
+      return MEDIA.posts.mission;
+    case "goals":
+      return MEDIA.posts.goals;
+    case "progress":
+      return MEDIA.posts.progress;
+    default:
+      return MEDIA.hero;
+  }
+}
 
 export function canonicalUrl(pathname = "/"): string {
   if (pathname === "/" || pathname === "") {
