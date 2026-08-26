@@ -87,14 +87,14 @@ test("site source has no PlayMaker brand strings", () => {
   assert.deepEqual(hits, []);
 });
 
-test("Grok Imagine media slots are wired to public/ PNG paths", () => {
+test("Grok Imagine media slots are wired to public/ JPG paths", () => {
   const site = read(join(ROOT, "src", "lib", "site.ts"));
-  assert.match(site, /og: "\/og\.png"/);
-  assert.match(site, /hero: "\/hero\.png"/);
+  assert.match(site, /og: "\/og\.jpg"/);
+  assert.match(site, /hero: "\/hero\.jpg"/);
   assert.match(site, /favicon: "\/favicon\.png"/);
-  assert.match(site, /mission: "\/posts\/mission\.png"/);
-  assert.match(site, /goals: "\/posts\/goals\.png"/);
-  assert.match(site, /progress: "\/posts\/progress\.png"/);
+  assert.match(site, /mission: "\/posts\/mission\.jpg"/);
+  assert.match(site, /goals: "\/posts\/goals\.jpg"/);
+  assert.match(site, /progress: "\/posts\/progress\.jpg"/);
   assert.match(read(join(ROOT, "src", "lib", "site.ts")), /APP_URL = "https:\/\/selectsideline\.com"/);
 });
 
@@ -137,10 +137,10 @@ test("build emits indexable static assets", () => {
 
   assert.match(home, /"@type":"Blog"/);
   assert.match(mission, /"@type":"BlogPosting"/);
-  assert.match(home, /\/hero\.png/);
-  assert.match(mission, /\/posts\/mission\.png/);
-  assert.match(goals, /\/posts\/goals\.png/);
-  assert.match(progress, /\/posts\/progress\.png/);
+  assert.match(home, /\/hero\.jpg/);
+  assert.match(mission, /\/posts\/mission\.jpg/);
+  assert.match(goals, /\/posts\/goals\.jpg/);
+  assert.match(progress, /\/posts\/progress\.jpg/);
   assert.match(home, /<link rel="canonical" href="https:\/\/blog\.selectsideline\.com\/"/);
 
   assert.match(robots, /Allow: \//);

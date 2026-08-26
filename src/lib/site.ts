@@ -7,13 +7,13 @@ export const THEME_COLOR = "#052e16";
 
 /** Grok Imagine (grok-imagine-image-2.0) drop-in paths. Do not generate these files in-repo. */
 export const MEDIA = {
-  og: "/og.png",
-  hero: "/hero.png",
+  og: "/og.jpg",
+  hero: "/hero.jpg",
   favicon: "/favicon.png",
   posts: {
-    mission: "/posts/mission.png",
-    goals: "/posts/goals.png",
-    progress: "/posts/progress.png",
+    mission: "/posts/mission.jpg",
+    goals: "/posts/goals.jpg",
+    progress: "/posts/progress.jpg",
   },
 } as const;
 
