@@ -1,5 +1,6 @@
 ---
 import { getCollection } from "astro:content";
+import ProductCta from "../components/ProductCta.astro";
 import BaseLayout from "../layouts/BaseLayout.astro";
 import { APP_URL, MEDIA, SITE_DESCRIPTION, SITE_TITLE, blogJsonLd, formatDate } from "../lib/site";
 
@@ -9,21 +10,24 @@ const posts = (await getCollection("posts")).sort(
 ---
 
 <BaseLayout title={SITE_TITLE} description={SITE_DESCRIPTION} pathname="/" jsonLd={blogJsonLd()}>
-  <p class="kicker">Select Sideline</p>
-  <figure class="media-frame hero">
+  <section class="hero" slot="banner">
     <img
       src={MEDIA.hero}
-      alt="Youth football field at dusk, the Select Sideline blog hero."
+      alt="Empty football field at dusk under stadium lights."
       width="1920"
       height="1080"
     />
-  </figure>
-  <h1>Notes from the sideline</h1>
+    <div class="hero-copy wrap">
+      <p class="kicker">Select Sideline</p>
+      <h1>Notes from the sideline</h1>
+      <p>A curated youth playbook for select-age 3rd through 8th grade teams.</p>
+      <ProductCta />
+    </div>
+  </section>
   <p class="lede">
-    Select Sideline is a curated youth playbook for select-age 3rd through 8th grade teams.
-    Easy to teach, roster next to play calling, offline, and free. The app is at
-    <a href={APP_URL}>selectsideline.com</a>. This blog is the public story of why it exists
-    and what is live.
+    Easy to teach, roster next to play calling, offline, and free. The live product is
+    <a href={APP_URL}>https://selectsideline.com</a>. This blog is the public story of why it
+    exists and what is live.
   </p>
   <h2>Posts</h2>
   <ul class="post-list">

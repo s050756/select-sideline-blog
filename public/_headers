@@ -12,5 +12,14 @@
 /favicon.png
   Cache-Control: public, max-age=86400
 
+/favicon-32.png
+  Cache-Control: public, max-age=86400
+
+/apple-touch.png
+  Cache-Control: public, max-age=86400
+
+/icon-512.png
+  Cache-Control: public, max-age=86400
+
 /posts/*
   Cache-Control: public, max-age=86400

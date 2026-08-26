@@ -78,6 +78,7 @@ const jsonLdItems = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
     <a class="skip" href="#content">Skip to content</a>
     <Header pathname={pathname} />
     <main id="content">
+      <slot name="banner" />
       <div class="wrap">
         <slot />
       </div>

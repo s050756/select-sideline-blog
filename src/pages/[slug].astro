@@ -2,6 +2,7 @@
 import { getCollection, render } from "astro:content";
 import type { CollectionEntry } from "astro:content";
 import BaseLayout from "../layouts/BaseLayout.astro";
+import ProductCta from "../components/ProductCta.astro";
 import { blogPostingJsonLd, formatDate } from "../lib/site";
 
 export async function getStaticPaths() {
@@ -50,6 +51,12 @@ const pathname = `/${post.id}`;
     <div class="prose">
       <Content />
     </div>
+    <p class="product-close">
+      Use the live product at <a href="https://selectsideline.com">https://selectsideline.com</a>.
+    </p>
+    <p class="product-close">
+      <ProductCta />
+    </p>
   </article>
   <a class="back" href="/">Back to the blog</a>
 </BaseLayout>

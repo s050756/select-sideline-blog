@@ -135,17 +135,22 @@ a:focus-visible {
   text-decoration: underline;
 }
 
-.nav .app-link {
+.cta {
+  display: inline-block;
   color: #14532d;
   background: var(--accent);
-  padding: 0.35rem 0.7rem;
-  font-weight: 700;
+  padding: 0.5rem 0.9rem;
+  font-weight: 800;
   text-decoration: none;
 }
 
-.nav .app-link:hover {
+.cta:hover {
   color: #052e16;
   filter: brightness(1.05);
+}
+
+.nav .cta {
+  padding: 0.35rem 0.7rem;
 }
 
 main {
@@ -201,9 +206,53 @@ h2 {
   background: var(--field-mid);
 }
 
-.hero img,
+.hero {
+  position: relative;
+  margin: 0 0 1.75rem;
+  background: var(--field-card);
+  border-bottom: 1px solid var(--line-dim);
+}
+
+.hero img {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-height: 28rem;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  background: var(--field-mid);
+}
+
+.hero-copy {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding-bottom: 1.4rem;
+  padding-top: 3rem;
+  background: linear-gradient(transparent, rgba(5, 46, 22, 0.92) 45%);
+}
+
+.hero-copy h1,
+.hero-copy p {
+  color: var(--chalk);
+  margin: 0 0 0.7rem;
+}
+
+.hero-copy .kicker {
+  color: var(--muted);
+}
+
 .post-header img {
   aspect-ratio: 16 / 9;
+}
+
+.product-close {
+  margin: 1.4rem 0 0;
+}
+
+.footer-cta {
+  margin-top: 0.8rem;
 }
 
 .post-list {
@@ -299,5 +348,11 @@ h2 {
   .nav {
     width: 100%;
     justify-content: flex-start;
+  }
+
+  .hero-copy {
+    position: static;
+    padding-top: 1rem;
+    background: var(--field);
   }
 }

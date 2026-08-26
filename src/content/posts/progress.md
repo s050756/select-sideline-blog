@@ -3,10 +3,10 @@ title: The product is live
 description: Select Sideline is live at selectsideline.com with playbook, roster, share and join, print sheets, and in-app feedback.
 pubDate: 2026-08-20
 headerImage: /posts/progress.png
-headerAlt: Printed call sheets and a phone on a youth football sideline.
+headerAlt: Coach headset, laminated play sheet, and a tablet on a sideline bench.
 ---
 
-Select Sideline is live at [selectsideline.com](https://selectsideline.com).
+Select Sideline is live at [https://selectsideline.com](https://selectsideline.com).
 
 What you can do today:
 

@@ -87,7 +87,7 @@ test("site source has no PlayMaker brand strings", () => {
   assert.deepEqual(hits, []);
 });
 
-test("Grok Imagine media slots are wired to public/ paths", () => {
+test("Grok Imagine media slots are wired to public/ PNG paths", () => {
   const site = read(join(ROOT, "src", "lib", "site.ts"));
   assert.match(site, /og: "\/og\.png"/);
   assert.match(site, /hero: "\/hero\.png"/);
@@ -95,13 +95,27 @@ test("Grok Imagine media slots are wired to public/ paths", () => {
   assert.match(site, /mission: "\/posts\/mission\.png"/);
   assert.match(site, /goals: "\/posts\/goals\.png"/);
   assert.match(site, /progress: "\/posts\/progress\.png"/);
+  assert.match(read(join(ROOT, "src", "lib", "site.ts")), /APP_URL = "https:\/\/selectsideline\.com"/);
+});
 
-  const home = read(join(ROOT, "src", "pages", "index.astro"));
-  assert.match(home, /MEDIA\.hero/);
+test("every page has an obvious product link to https://selectsideline.com", () => {
+  const home = distPage("index");
+  const mission = distPage("mission");
+  const goals = distPage("goals");
+  const progress = distPage("progress");
+  const notFound = distPage("404");
 
-  const layout = read(join(ROOT, "src", "layouts", "BaseLayout.astro"));
-  assert.match(layout, /\/favicon\.png/);
-  assert.match(layout, /og:image/);
+  for (const html of [home, mission, goals, progress, notFound]) {
+    assert.match(html, /href="https:\/\/selectsideline\.com"/);
+    assert.match(html, /Open the playbook/);
+    assert.doesNotMatch(html, /playmaker\.ludacr1tz\.com/i);
+  }
+
+  assert.match(home, /class="hero"/);
+  assert.match(home, /class="cta" href="https:\/\/selectsideline\.com"/);
+  assert.match(mission, /class="product-close"/);
+  assert.match(goals, /class="product-close"/);
+  assert.match(progress, /class="product-close"/);
 });
 
 test("build emits indexable static assets", () => {

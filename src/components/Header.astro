@@ -1,5 +1,6 @@
 ---
-import { APP_URL, SITE_NAME } from "../lib/site";
+import { SITE_NAME } from "../lib/site";
+import ProductCta from "./ProductCta.astro";
 
 interface Props {
   pathname: string;
@@ -14,7 +15,7 @@ const onHome = pathname === "/";
     <a class="brand" href="/" aria-current={onHome ? "page" : undefined}>{SITE_NAME}</a>
     <nav class="nav" aria-label="Primary">
       <a href="/" aria-current={onHome ? "page" : undefined}>Blog</a>
-      <a class="app-link" href={APP_URL}>Open the app</a>
+      <ProductCta />
     </nav>
   </div>
 </header>

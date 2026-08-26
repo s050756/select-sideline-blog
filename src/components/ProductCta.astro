@@ -1,0 +1,11 @@
+---
+import { APP_URL } from "../lib/site";
+
+interface Props {
+  label?: string;
+}
+
+const { label = "Open the playbook" } = Astro.props;
+---
+
+<a class="cta" href={APP_URL}>{label}</a>

@@ -1,5 +1,6 @@
 ---
 import { APP_URL, FEEDBACK_EMAIL, SITE_NAME } from "../lib/site";
+import ProductCta from "./ProductCta.astro";
 
 const year = new Date().getUTCFullYear();
 ---
@@ -8,8 +9,11 @@ const year = new Date().getUTCFullYear();
   <div class="wrap">
     <p>Copyright {year} {SITE_NAME}.</p>
     <p>
-      The playbook app lives at <a href={APP_URL}>selectsideline.com</a>.
+      Use the live product at <a href={APP_URL}>selectsideline.com</a>.
       Send product notes from the app or {FEEDBACK_EMAIL}.
+    </p>
+    <p class="footer-cta">
+      <ProductCta />
     </p>
   </div>
 </footer>
