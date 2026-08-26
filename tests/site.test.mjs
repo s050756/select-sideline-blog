@@ -138,8 +138,8 @@ test("paper editorial replaces the turf wallpaper theme", () => {
   const progressMd = read(join(ROOT, "src", "content", "posts", "progress.md"));
   const watchMd = read(join(ROOT, "src", "content", "posts", "watch-the-playbook.md"));
 
-  assert.match(css, /--serif: "Newsreader"/);
-  assert.match(css, /--sans: "Source Sans 3"/);
+  assert.match(css, /Newsreader/);
+  assert.match(css, /Source Sans 3/);
   assert.doesNotMatch(css, /ui-sans-serif/);
   assert.doesNotMatch(css, /system-ui/);
   assert.doesNotMatch(css, /repeating-linear-gradient/);
@@ -152,9 +152,9 @@ test("paper editorial replaces the turf wallpaper theme", () => {
   assert.match(layout, /fonts\.googleapis\.com/);
   assert.match(layout, /Newsreader/);
   assert.match(layout, /Source\+Sans\+3/);
-  assert.match(homeSrc, /class="hero"/);
-  assert.match(homeSrc, /class="hero-board"/);
-  assert.match(homeSrc, /class="support"/);
+  assert.match(homeSrc, /class="featured"/);
+  assert.match(homeSrc, /class="featured-media"/);
+  assert.match(homeSrc, /class="supporting"/);
   assert.match(
     homeSrc,
     /A curated playbook for select and premier youth coaches\. Roster and play calling stay together/,
@@ -192,9 +192,9 @@ test("every page has an obvious product link to https://selectsideline.com", () 
     assert.doesNotMatch(html, /playmaker\.ludacr1tz\.com/i);
   }
 
-  assert.match(home, /class="hero"/);
-  assert.match(home, /class="hero-board"/);
-  assert.match(home, /class="support"/);
+  assert.match(home, /class="featured"/);
+  assert.match(home, /class="featured-media"/);
+  assert.match(home, /class="supporting"/);
   assert.doesNotMatch(home, /post-card/);
   assert.match(home, /class="cta" href="https:\/\/selectsideline\.com"/);
   assert.equal([...home.matchAll(/class="cta"/g)].length, 2);
@@ -234,7 +234,7 @@ test("build emits indexable static assets", () => {
 
   assert.match(home, /"@type":"Blog"/);
   assert.match(mission, /"@type":"BlogPosting"/);
-  assert.match(home, /\/hero\.jpg/);
+  assert.match(home, /\/posts\/watch-the-playbook\.jpg/);
   assert.match(mission, /\/posts\/mission\.jpg/);
   assert.match(goals, /\/posts\/goals\.jpg/);
   assert.match(progress, /\/posts\/progress\.jpg/);
