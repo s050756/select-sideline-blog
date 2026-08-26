@@ -94,6 +94,7 @@ test("required Imagine bytes are committed in public/", () => {
     ["public/og.jpg", jpeg],
     ["public/hero.jpg", jpeg],
     ["public/favicon.png", png],
+    ["public/apple-touch-icon.png", png],
     ["public/posts/mission.jpg", jpeg],
     ["public/posts/goals.jpg", jpeg],
     ["public/posts/progress.jpg", jpeg],
@@ -107,7 +108,9 @@ test("required Imagine bytes are committed in public/", () => {
   assert.doesNotMatch(ignore, /public\/og\.jpg/);
   assert.doesNotMatch(ignore, /public\/hero\.jpg/);
   assert.doesNotMatch(ignore, /public\/favicon\.png/);
+  assert.doesNotMatch(ignore, /public\/apple-touch-icon\.png/);
   assert.doesNotMatch(ignore, /public\/posts\/\*\.jpg/);
+  assert.doesNotMatch(read(join(ROOT, "package.json")), /decode-imagine/);
 });
 
 test("Grok Imagine media slots are wired to public/ JPG paths", () => {
@@ -197,6 +200,7 @@ test("build emits indexable static assets", () => {
   assert.equal(existsSync(join(DIST, "og.jpg")), true);
   assert.equal(existsSync(join(DIST, "hero.jpg")), true);
   assert.equal(existsSync(join(DIST, "favicon.png")), true);
+  assert.equal(existsSync(join(DIST, "apple-touch-icon.png")), true);
   assert.equal(existsSync(join(DIST, "posts", "mission.jpg")), true);
   assert.equal(existsSync(join(DIST, "posts", "goals.jpg")), true);
   assert.equal(existsSync(join(DIST, "posts", "progress.jpg")), true);

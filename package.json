@@ -7,7 +7,7 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "build": "node scripts/decode-imagine.mjs && astro build",
+    "build": "astro build",
     "preview": "astro preview",
     "test": "npm run build && node --test tests/*.test.mjs"
   },
