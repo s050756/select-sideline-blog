@@ -6,6 +6,8 @@ This repo is a static Astro site deployed as a Cloudflare Worker + Assets on the
 
 ## Local
 
+Requires Node 22.12 or newer (Astro 7).
+
 ```bash
 npm install
 npm test

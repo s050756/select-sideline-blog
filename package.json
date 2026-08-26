@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "engines": {
-    "node": ">=20"
+    "node": ">=22.12.0"
   },
   "scripts": {
     "dev": "astro dev",
@@ -12,9 +12,13 @@
     "test": "npm run build && node --test tests/*.test.mjs"
   },
   "dependencies": {
-    "astro": "^5.18.2"
+    "astro": "^7.2.7"
   },
   "devDependencies": {
     "wrangler": "^4.126.0"
+  },
+  "overrides": {
+    "esbuild": "^0.28.1",
+    "sharp": "^0.35.0"
   }
 }
