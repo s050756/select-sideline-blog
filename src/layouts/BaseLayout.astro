@@ -90,6 +90,6 @@ const jsonLdItems = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
         <slot />
       </div>
     </main>
-    <Footer />
+    <Footer pathname={pathname} />
   </body>
 </html>

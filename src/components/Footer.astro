@@ -1,6 +1,11 @@
 ---
 import { APP_URL, FEEDBACK_EMAIL, SITE_NAME } from "../lib/site";
 
+interface Props {
+  pathname?: string;
+}
+
+const { pathname = "" } = Astro.props;
 const year = new Date().getUTCFullYear();
 ---
 
@@ -11,6 +16,11 @@ const year = new Date().getUTCFullYear();
       <a href={APP_URL}>Use the app</a>
       <span class="footer-sep" aria-hidden="true">·</span>
       <a href={`mailto:${FEEDBACK_EMAIL}`}>{FEEDBACK_EMAIL}</a>
+    </p>
+    <p class="footer-legal">
+      <a href="/privacy" aria-current={pathname === "/privacy" ? "page" : undefined}>Privacy</a>
+      <span class="footer-sep" aria-hidden="true">·</span>
+      <a href="/terms" aria-current={pathname === "/terms" ? "page" : undefined}>Terms</a>
     </p>
     <p class="footer-copy">© {year} {SITE_NAME}</p>
   </div>

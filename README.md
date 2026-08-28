@@ -47,6 +47,11 @@ Not a CMS. Four hardcoded Markdown posts:
 - `/goals`
 - `/progress`
 
+Static legal pages (indexable HTML, not a modal):
+
+- `/privacy`
+- `/terms`
+
 Feedback stays on the app (`feedback@selectsideline.com`). This site has no feedback form.
 
 ## Images
@@ -61,7 +66,7 @@ All visual media must be Grok Imagine (`grok-imagine-image-2.0`). Files live at:
 - `public/posts/progress.jpg`
 - `public/posts/watch-the-playbook.jpg`
 
-Every page links to the live product at `https://selectsideline.com` (header, footer, homepage hero CTA, and a closing CTA on each post).
+Every page links to the live product at `https://selectsideline.com` (one header pill, one homepage hero CTA, one closing line on each post, and one quiet footer text link). The footer on every page also has text links to Privacy and Terms. Those are legal links, not product CTAs.
 
 ## SEO
 

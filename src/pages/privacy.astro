@@ -1,0 +1,33 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import { webPageJsonLd } from "../lib/site";
+
+const pathname = "/privacy";
+const title = "Privacy";
+const description =
+  "Solo data stays on your device. Share / Join is opt-in and short-lived. There are no accounts, ads, or product analytics.";
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  pathname={pathname}
+  jsonLd={webPageJsonLd({ title, description, pathname })}
+>
+  <article class="post-page">
+    <p class="kicker">Select Sideline</p>
+    <h1>Privacy</h1>
+    <p class="lede">{description}</p>
+    <div class="prose">
+      <h2>Data on your device</h2>
+      <p>Roster names, jersey numbers, positions, notes, On/Off playtime, play history, and settings stay in your browser (IndexedDB). Clearing site data or using Clear roster removes that local copy.</p>
+      <h2>Share / Join</h2>
+      <p>If you tap Share, a 4-character code is created and the current roster and game state are sent to a short-lived room so up to eight invited devices can stay in sync. Rooms last about seven days.</p>
+      <h2>What we do not collect</h2>
+      <p>There are no accounts, advertising, or product analytics. The service does not ask for email, payment, or a login.</p>
+      <h2>Ownership</h2>
+      <p>You keep ownership of roster content you enter. Select Sideline's software, playbook, and marks remain the copyright holder's property.</p>
+    </div>
+  </article>
+  <a class="back" href="/">Back to the blog</a>
+</BaseLayout>

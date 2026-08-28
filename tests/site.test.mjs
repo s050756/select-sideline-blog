@@ -248,8 +248,10 @@ test("every page has an obvious product link to https://selectsideline.com", () 
   const progress = distPage("progress");
   const watch = distPage("watch-the-playbook");
   const notFound = distPage("404");
+  const privacy = distPage("privacy");
+  const terms = distPage("terms");
 
-  for (const html of [home, mission, goals, progress, watch, notFound]) {
+  for (const html of [home, mission, goals, progress, watch, notFound, privacy, terms]) {
     assert.match(html, /href="https:\/\/selectsideline\.com"/);
     assert.match(html, /Open the playbook/);
     assert.doesNotMatch(html, /playmaker\.ludacr1tz\.com/i);
@@ -288,11 +290,14 @@ test("build emits indexable static assets", () => {
   const goals = distPage("goals");
   const progress = distPage("progress");
   const watch = distPage("watch-the-playbook");
+  const privacy = distPage("privacy");
+  const terms = distPage("terms");
   const robots = read(join(DIST, "robots.txt"));
   const sitemap = read(join(DIST, "sitemap.xml"));
 
-  for (const html of [home, mission, goals, progress, watch]) {
+  for (const html of [home, mission, goals, progress, watch, privacy, terms]) {
     assert.match(html, /index,follow|content="index,follow"/);
+    assert.doesNotMatch(html, /noindex/);
     assert.match(html, /blog\.selectsideline\.com/);
     assert.doesNotMatch(html, PLAYMAKER);
     assert.equal(html.includes(EM_DASH), false);
@@ -324,4 +329,107 @@ test("build emits indexable static assets", () => {
   assert.match(sitemap, /https:\/\/blog\.selectsideline\.com\/goals/);
   assert.match(sitemap, /https:\/\/blog\.selectsideline\.com\/progress/);
   assert.match(sitemap, /https:\/\/blog\.selectsideline\.com\/watch-the-playbook/);
+  assert.match(sitemap, /https:\/\/blog\.selectsideline\.com\/privacy/);
+  assert.match(sitemap, /https:\/\/blog\.selectsideline\.com\/terms/);
+});
+
+test("privacy and terms are crawlable legal pages with footer links on every page", () => {
+  const home = distPage("index");
+  const mission = distPage("mission");
+  const goals = distPage("goals");
+  const progress = distPage("progress");
+  const watch = distPage("watch-the-playbook");
+  const notFound = distPage("404");
+  const privacy = distPage("privacy");
+  const terms = distPage("terms");
+  const pages = [home, mission, goals, progress, watch, notFound, privacy, terms];
+
+  for (const html of pages) {
+    assert.match(html, /class="footer-legal"/);
+    assert.match(html, /href="\/privacy"[^>]*>Privacy</);
+    assert.match(html, /href="\/terms"[^>]*>Terms</);
+    assert.match(html, />Use the app</);
+    assert.doesNotMatch(html, /footer[\s\S]*class="cta"/);
+    assert.doesNotMatch(html, /class="cta"[^>]*>\s*(Privacy|Terms)\s*</);
+    assert.doesNotMatch(html, /agentmail\.to/i);
+    assert.doesNotMatch(html, PLAYMAKER);
+    assert.doesNotMatch(html, /3rd.?8th/i);
+    assert.doesNotMatch(html, /high school/i);
+    assert.doesNotMatch(html, /varsity/i);
+  }
+
+  for (const html of [privacy, terms]) {
+    assert.match(html, /<article class="post-page">/);
+    assert.match(html, /<h1>/);
+    assert.match(html, /content="index,follow"/);
+    assert.doesNotMatch(html, /noindex/);
+    assert.doesNotMatch(html, /class="product-close"/);
+    assert.equal([...html.matchAll(/class="cta"/g)].length, 1);
+    assert.match(html, /"@type":"WebPage"/);
+    assert.match(html, /select and premier youth/);
+  }
+
+  assert.match(privacy, /<link rel="canonical" href="https:\/\/blog\.selectsideline\.com\/privacy"/);
+  assert.match(privacy, /<h1>Privacy<\/h1>/);
+  assert.match(
+    privacy,
+    /Solo data stays on your device\. Share \/ Join is opt-in and short-lived\. There are no accounts, ads, or product analytics\./,
+  );
+  assert.match(privacy, /<h2>Data on your device<\/h2>/);
+  assert.match(
+    privacy,
+    /Roster names, jersey numbers, positions, notes, On\/Off playtime, play history, and settings stay in your browser \(IndexedDB\)\. Clearing site data or using Clear roster removes that local copy\./,
+  );
+  assert.match(privacy, /<h2>Share \/ Join<\/h2>/);
+  assert.match(
+    privacy,
+    /If you tap Share, a 4-character code is created and the current roster and game state are sent to a short-lived room so up to eight invited devices can stay in sync\. Rooms last about seven days\./,
+  );
+  assert.match(privacy, /<h2>What we do not collect<\/h2>/);
+  assert.match(
+    privacy,
+    /There are no accounts, advertising, or product analytics\. The service does not ask for email, payment, or a login\./,
+  );
+  assert.match(privacy, /<h2>Ownership<\/h2>/);
+  assert.match(
+    privacy,
+    /You keep ownership of roster content you enter\. Select Sideline's software, playbook, and marks remain the copyright holder's property\./,
+  );
+  assert.match(privacy, /href="\/privacy"[^>]*aria-current="page"/);
+
+  assert.match(terms, /<link rel="canonical" href="https:\/\/blog\.selectsideline\.com\/terms"/);
+  assert.match(terms, /<h1>Terms of use<\/h1>/);
+  assert.match(
+    terms,
+    /Use of the official Select Sideline service is a limited coaching license, not a grant of ownership or reuse rights\./,
+  );
+  assert.match(terms, /<h2>Agreement<\/h2>/);
+  assert.match(
+    terms,
+    /By using Select Sideline at <a href="https:\/\/selectsideline\.com">https:\/\/selectsideline\.com<\/a> you agree to these terms and to the proprietary license\. If you do not agree, do not use the service\./,
+  );
+  assert.match(terms, /<h2>Limited license<\/h2>/);
+  assert.match(
+    terms,
+    /You receive a personal, revocable, non-exclusive, non-transferable right to use the official service for lawful youth-football coaching\. You receive no ownership of the source, playbook, formations, routes, graphics, or interface\./,
+  );
+  assert.match(terms, /<h2>What you may not do<\/h2>/);
+  assert.match(
+    terms,
+    /You may not copy, scrape, rehost, resell, or redistribute the service or its playbook; build a competing product from Select Sideline; reverse engineer it except where the law forbids that limit; remove notices; use it to train a machine-learning model; or interfere with Share \/ Join rooms you were not invited to\./,
+  );
+  assert.match(terms, /<h2>Your roster<\/h2>/);
+  assert.match(
+    terms,
+    /You retain ownership of roster names, numbers, notes, and other content you enter\. If you use Share \/ Join, you authorize transmission of the current roster and game state to devices that join that code\./,
+  );
+  assert.match(terms, /<h2>Disclaimer<\/h2>/);
+  assert.match(
+    terms,
+    /The service is provided "as is" and "as available", without warranty of any kind\. To the maximum extent permitted by law, the copyright holder is not liable for indirect, incidental, special, consequential, or exemplary damages, or for lost plays, rosters, or data\./,
+  );
+  assert.match(terms, /href="\/terms"[^>]*aria-current="page"/);
+
+  assert.equal([...home.matchAll(/class="cta"/g)].length, 2);
+  assert.equal([...mission.matchAll(/class="cta"/g)].length, 1);
 });
