@@ -1,6 +1,6 @@
 import type { APIRoute } from "astro";
 import { getCollection } from "astro:content";
-import { canonicalUrl, isoDate } from "../lib/site";
+import { LEGAL_PAGES, canonicalUrl, isoDate } from "../lib/site";
 
 export const GET: APIRoute = async () => {
   const posts = await getCollection("posts");
@@ -17,6 +17,10 @@ export const GET: APIRoute = async () => {
       loc: canonicalUrl("/"),
       lastmod: lastPost ? isoDate(lastPost) : "2026-08-20",
     },
+    ...LEGAL_PAGES.map((page) => ({
+      loc: canonicalUrl(page.pathname),
+      lastmod: page.lastmod,
+    })),
     ...posts.map((post) => ({
       loc: canonicalUrl(`/${post.id}`),
       lastmod: isoDate(post.data.updatedDate ?? post.data.pubDate),

@@ -61,6 +61,11 @@ export function organizationJsonLd(): Record<string, unknown> {
   };
 }
 
+export const LEGAL_PAGES = [
+  { pathname: "/privacy", lastmod: "2026-08-28" },
+  { pathname: "/terms", lastmod: "2026-08-28" },
+] as const;
+
 export function blogJsonLd(): Record<string, unknown> {
   return {
     "@context": "https://schema.org",
@@ -68,6 +73,23 @@ export function blogJsonLd(): Record<string, unknown> {
     name: SITE_TITLE,
     url: canonicalUrl("/"),
     description: SITE_DESCRIPTION,
+    publisher: organizationJsonLd(),
+    inLanguage: "en-US",
+  };
+}
+
+export function webPageJsonLd(input: {
+  title: string;
+  description: string;
+  pathname: string;
+}): Record<string, unknown> {
+  return {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: input.title,
+    description: input.description,
+    url: canonicalUrl(input.pathname),
+    mainEntityOfPage: canonicalUrl(input.pathname),
     publisher: organizationJsonLd(),
     inLanguage: "en-US",
   };
