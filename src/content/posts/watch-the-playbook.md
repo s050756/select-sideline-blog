@@ -6,7 +6,7 @@ headerImage: /posts/watch-the-playbook.jpg
 headerAlt: Sideline bench at dusk with a tablet showing a play diagram, a coach headset, and a laminated call sheet.
 ---
 
-A Friday night should not start with a login wall. Select Sideline is a curated playbook for select and premier youth coaches, with roster and play calling in one place.
+Research plays and teach at practice, then use the same playbook on game night—no login wall. Select Sideline is a curated playbook for select and premier youth coaches, with roster and play calling in one place.
 
 This walk-through is the live app. Browse the playbook, keep a roster, assign players, call a play, share a game with a code, and print a sheet. No account. No ads on the call sheet.
 
