@@ -66,6 +66,13 @@ export const LEGAL_PAGES = [
   { pathname: "/terms", lastmod: "2026-08-28" },
 ] as const;
 
+export function openGraphType(pathname: string): "website" | "article" {
+  if (pathname === "/" || LEGAL_PAGES.some((page) => page.pathname === pathname)) {
+    return "website";
+  }
+  return "article";
+}
+
 export function blogJsonLd(): Record<string, unknown> {
   return {
     "@context": "https://schema.org",
