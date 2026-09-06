@@ -12,6 +12,7 @@ import {
   THEME_COLOR,
   absoluteUrl,
   canonicalUrl,
+  openGraphType,
 } from "../lib/site";
 
 interface Props {
@@ -55,7 +56,7 @@ const jsonLdItems = jsonLd ? (Array.isArray(jsonLd) ? jsonLd : [jsonLd]) : [];
       rel="stylesheet"
     />
 
-    <meta property="og:type" content={pathname === "/" ? "website" : "article"} />
+    <meta property="og:type" content={openGraphType(pathname)} />
     <meta property="og:site_name" content={SITE_NAME} />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />

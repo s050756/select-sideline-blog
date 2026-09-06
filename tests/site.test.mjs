@@ -264,6 +264,8 @@ test("every page has an obvious product link to https://selectsideline.com", () 
   assert.match(home, /class="cta" href="https:\/\/selectsideline\.com"/);
   assert.equal([...home.matchAll(/class="cta"/g)].length, 2);
   assert.match(home, /src="\/mark\.png"/);
+  assert.match(home, /class="brand-mark"[^>]*alt="Select Sideline"/);
+  assert.doesNotMatch(home, /class="brand-mark"[^>]*alt=""/);
   assert.doesNotMatch(home, /<span class="brand-mark"/);
   assert.match(home, />Use the app</);
   assert.doesNotMatch(home, /footer[\s\S]*class="cta"/);
@@ -305,7 +307,12 @@ test("build emits indexable static assets", () => {
   }
 
   assert.match(home, /"@type":"Blog"/);
+  assert.match(home, /property="og:type" content="website"/);
   assert.match(mission, /"@type":"BlogPosting"/);
+  assert.match(mission, /property="og:type" content="article"/);
+  assert.match(goals, /property="og:type" content="article"/);
+  assert.match(progress, /property="og:type" content="article"/);
+  assert.match(watch, /property="og:type" content="article"/);
   assert.match(home, /\/posts\/watch-the-playbook\.jpg/);
   assert.match(mission, /\/posts\/mission\.jpg/);
   assert.match(goals, /\/posts\/goals\.jpg/);
@@ -366,7 +373,11 @@ test("privacy and terms are crawlable legal pages with footer links on every pag
     assert.doesNotMatch(html, /class="product-close"/);
     assert.equal([...html.matchAll(/class="cta"/g)].length, 1);
     assert.match(html, /"@type":"WebPage"/);
+    assert.match(html, /property="og:type" content="website"/);
+    assert.doesNotMatch(html, /property="og:type" content="article"/);
+    assert.doesNotMatch(html, /aggregateRating|reviewRating|"@type":"Review"/);
     assert.match(html, /select and premier youth/);
+    assert.match(html, /class="brand-mark"[^>]*alt="Select Sideline"/);
   }
 
   assert.match(privacy, /<link rel="canonical" href="https:\/\/blog\.selectsideline\.com\/privacy"/);
